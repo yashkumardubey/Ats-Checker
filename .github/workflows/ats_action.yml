@@ -30,3 +30,9 @@ jobs:
 
       - name: "Run ATS checker"
         run: python3 my_ats_checker.py
+
+      - name: "cancel the job from run after successful run after 3 min it's done"
+        if: ${{ always() }}
+        run: |
+          sleep 180
+          exit 1 # This will cancel the job  from running further steps
