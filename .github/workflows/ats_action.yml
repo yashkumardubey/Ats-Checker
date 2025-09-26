@@ -1,0 +1,16 @@
+name: "excute ats_action"
+on:
+  push:
+    branches:
+      - main
+jobs:
+  ats_action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Install dependencies"
+        run: sudo apt install python3-pip -y
+      - name: "Install Python requirements"
+        run: pip3 install -r requirements.txt
+      - name: "Run ats_action.py"
+        run: python3 ats_action.py
+     
