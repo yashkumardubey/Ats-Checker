@@ -1,18 +1,32 @@
-name: "execute ats_action"
+name: "Execute ATS Action"
+
 on:
   push:
     branches:
       - main
+
 jobs:
   ats_action:
     runs-on: ubuntu-latest
+
     steps:
-      - name: "Install dependencies"
-        run: sudo apt install python3-pip -y
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+
+      - name: "Install Python and pip"
+        run: |
+          sudo apt update
+          sudo apt install python3-pip -y
+
+      - name: "Verify package.txt exists"
+        run: |
+          if [ ! -f package.txt ]; then
+            echo "❌ package.txt not found. Failing the build."
+            exit 1
+          fi
+
       - name: "Install Python requirements"
         run: pip3 install --upgrade -r package.txt
-      - name: "Install Python requirements"
-        run: pip3 install -r package.txt
-      - name: "Run ats_action.py"
+
+      - name: "Run ATS checker"
         run: python3 ats_action.py
-     
