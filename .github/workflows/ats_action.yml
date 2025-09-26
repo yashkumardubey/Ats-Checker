@@ -1,4 +1,4 @@
-name: "excute ats_action"
+name: "execute ats_action"
 on:
   push:
     branches:
@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: "Install dependencies"
         run: sudo apt install python3-pip -y
+      - name: "Install Python requirements"
+        run: pip3 install --upgrade -r requirements.txt
       - name: "Install Python requirements"
         run: pip3 install -r requirements.txt
       - name: "Run ats_action.py"
