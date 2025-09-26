@@ -10,9 +10,9 @@ jobs:
       - name: "Install dependencies"
         run: sudo apt install python3-pip -y
       - name: "Install Python requirements"
-        run: pip3 install --upgrade -r requirements.txt
+        run: pip3 install --upgrade -r package.txt
       - name: "Install Python requirements"
-        run: pip3 install -r requirements.txt
+        run: pip3 install -r package.txt
       - name: "Run ats_action.py"
         run: python3 ats_action.py
      
