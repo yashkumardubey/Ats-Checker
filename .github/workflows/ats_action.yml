@@ -21,7 +21,7 @@ jobs:
       - name: "Verify package.txt exists"
         run: |
           if [ ! -f package.txt ]; then
-            echo "❌ package.txt not found. Failing the build."
+            echo "package.txt not found. Failing the build."
             exit 1
           fi
 
@@ -36,7 +36,7 @@ jobs:
       - name: "Wait and test endpoint"
         run: |
           sleep 10
-          curl --fail http://127.0.0.1:5000 || (echo "❌ Flask app did not respond" && exit 1)
+          curl --fail http://127.0.0.1:5000 || (echo "Flask app did not respond" && exit 1)
 
       - name: "Stop Flask app"
         run: |
