@@ -28,11 +28,16 @@ jobs:
       - name: "Install Python requirements"
         run: pip3 install --upgrade -r package.txt
 
-      - name: "Run ATS checker"
-        run: python3 my_ats_checker.py
-
-      - name: "cancel the job from run after successful run after 3 min it's done"
-        if: ${{ always() }}
+      - name: "Run Flask app in background"
         run: |
-          sleep 180
-          exit 1 # This will cancel the job  from running further steps
+          nohup python3 my_ats_checker.py > flask.log 2>&1 &
+          echo "Flask app started in background..."
+
+      - name: "Wait and test endpoint"
+        run: |
+          sleep 10
+          curl --fail http://127.0.0.1:5000 || (echo "❌ Flask app did not respond" && exit 1)
+
+      - name: "Stop Flask app"
+        run: |
+          pkill -f my_ats_checker.py || echo "Flask app already stopped"
